@@ -48,7 +48,7 @@ func init() {
 	viper.SetDefault("api", defaultAPI)
 	viper.SetDefault("url", defaultURL)
 	viper.SetDefault("one-time", true)
-	viper.SetDefault("expiration", "1h")
+	viper.SetDefault("expiration", "1d")
 
 	// Config file
 	viper.SetConfigName("defaults")

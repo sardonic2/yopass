@@ -24,6 +24,7 @@ type Server struct {
 	MaxLength           int
 	Registry            *prometheus.Registry
 	ForceOneTimeSecrets bool
+	DisableOneTime      bool
 	AssetPath           string
 	Logger              *zap.Logger
 	TrustedProxies      []string
@@ -49,6 +50,17 @@ func (y *Server) createSecret(w http.ResponseWriter, request *http.Request) {
 	if !validExpiration(s.Expiration) {
 		http.Error(w, `{"message": "Invalid expiration specified"}`, http.StatusBadRequest)
 		return
+	}
+
+	// Handle conflicting flags
+	if y.DisableOneTime && y.ForceOneTimeSecrets {
+		http.Error(w, `{"message": "Server configuration error: both disable-onetime and force-onetime-secrets are enabled"}`, http.StatusInternalServerError)
+		return
+	}
+
+	// If DisableOneTime is set, force OneTime to false
+	if y.DisableOneTime {
+		s.OneTime = false
 	}
 
 	if !s.OneTime && y.ForceOneTimeSecrets {
@@ -169,6 +181,7 @@ func (y *Server) configHandler(w http.ResponseWriter, r *http.Request) {
 		"DISABLE_FEATURES":      viper.GetBool("disable-features"),
 		"NO_LANGUAGE_SWITCHER":  viper.GetBool("no-language-switcher"),
 		"FORCE_ONETIME_SECRETS": viper.GetBool("force-onetime-secrets"),
+		"DISABLE_ONETIME":       viper.GetBool("disable-onetime"),
 	}
 
 	// Add optional string URLs only if they are provided
