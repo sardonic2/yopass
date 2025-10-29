@@ -39,6 +39,7 @@ func init() {
 	pflag.String("tls-key", "", "path to TLS key")
 	pflag.Bool("force-onetime-secrets", false, "reject non onetime secrets from being created")
 	pflag.Bool("disable-onetime", false, "disable one-time downloads, secrets can be accessed multiple times")
+	pflag.String("default-expiration", "1h", "default expiration time for web interface [1h, 1d, 1w]")
 	pflag.String("cors-allow-origin", "*", "Access-Control-Allow-Origin")
 	pflag.Bool("disable-upload", false, "disable the /file upload endpoints")
 	pflag.Bool("prefetch-secret", true, "Display information that the secret might be one time use")

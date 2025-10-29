@@ -9,6 +9,7 @@ export interface Config {
   PREFETCH_SECRET: boolean;
   NO_LANGUAGE_SWITCHER: boolean;
   FORCE_ONETIME_SECRETS: boolean;
+  DEFAULT_EXPIRATION: number;
   PRIVACY_NOTICE_URL?: string;
   IMPRINT_URL?: string;
 }
@@ -19,6 +20,7 @@ const defaultConfig: Config = {
   PREFETCH_SECRET: true,
   NO_LANGUAGE_SWITCHER: false,
   FORCE_ONETIME_SECRETS: false,
+  DEFAULT_EXPIRATION: 3600,
 };
 
 type GlobalWithCache = typeof globalThis & {
@@ -52,6 +54,7 @@ async function loadConfig(): Promise<Config> {
         PREFETCH_SECRET: data.PREFETCH_SECRET,
         NO_LANGUAGE_SWITCHER: data.NO_LANGUAGE_SWITCHER,
         FORCE_ONETIME_SECRETS: data.FORCE_ONETIME_SECRETS,
+        DEFAULT_EXPIRATION: data.DEFAULT_EXPIRATION || 3600,
         PRIVACY_NOTICE_URL: data.PRIVACY_NOTICE_URL,
         IMPRINT_URL: data.IMPRINT_URL,
       };

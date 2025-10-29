@@ -106,7 +106,7 @@ export default function CreateSecret() {
                 type="radio"
                 {...register('expiration')}
                 className="radio radio-primary"
-                defaultChecked={true}
+                defaultChecked={config?.DEFAULT_EXPIRATION === 3600}
                 value="3600"
               />
               <span className="label-text font-medium">
@@ -118,6 +118,7 @@ export default function CreateSecret() {
                 type="radio"
                 {...register('expiration')}
                 className="radio radio-primary"
+                defaultChecked={config?.DEFAULT_EXPIRATION === 86400}
                 value="86400"
               />
               <span className="label-text font-medium">
@@ -129,6 +130,7 @@ export default function CreateSecret() {
                 type="radio"
                 {...register('expiration')}
                 className="radio radio-primary"
+                defaultChecked={config?.DEFAULT_EXPIRATION === 604800}
                 value="604800"
               />
               <span className="label-text font-medium">
