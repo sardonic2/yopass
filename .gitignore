@@ -3,6 +3,10 @@ coverage
 coverage.txt
 website/node_modules
 
+# compiled binaries
+yopass
+yopass-server
+
 # production
 website/build
 
